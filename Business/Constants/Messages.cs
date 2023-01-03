@@ -15,5 +15,9 @@ namespace Business.Constants
         public static string ProductCountOfCategoryError = "BIR KATEGORIDE EN FAZLA 10 URUN BULUNABİLİR";
 
         public static string ProductNameAlreadyExists = "BU ISIMDE URUN BULUNMAKTADIR";
+
+        public static string CategoryAdded = "KATEGORI EKLENDI";
+
+        public static string CategoryCountError = "KATEGORI SAYISINDAN DOLAYI EKLENEMEDI";
     }
 }

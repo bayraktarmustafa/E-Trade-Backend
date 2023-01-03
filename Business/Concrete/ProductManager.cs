@@ -20,11 +20,14 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ICategoryService _categoryService;
+     
 
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal,ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
 
         }
 
@@ -33,7 +36,7 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
-                 CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+                 CheckIfProductCountOfCategoryCorrect(product.CategoryId), CheckOfCategoryCount());
 
             if (result != null)
             {
@@ -111,6 +114,18 @@ namespace Business.Concrete
 
 
         }
+
+        private IResult CheckOfCategoryCount()
+        {
+            var result = _categoryService.GetAll();
+            if(result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.CategoryCountError);
+            }
+            return new SuccessResult();
+        }
+
+
 
     }
 }
